@@ -21,9 +21,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.tableView.reloadData()
         }
-        
-        tableView.delegate = self
-        tableView.dataSource = self
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,6 +35,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.textLabel?.text = pokemons[indexPath.row].name.capitalized
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let defaults = UserDefaults.standard
+        defaults.set(pokemons[indexPath.row].name.capitalized, forKey: "name")
+        
+        performSegue(withIdentifier: "showDetails", sender: self)
+        
     }
     
     
@@ -61,7 +68,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 do {
                     let pokemonFeed = try decoder.decode(Pokemon.self, from: data!)
                     self.pokemons = pokemonFeed.results
-                    completed()
+                    
+                    DispatchQueue.main.async {
+                        completed()
+                    }
                     
                 } catch {
                     debugPrint("Error")
