@@ -10,12 +10,14 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
+    var detailURL = ""
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        setLabels()
         
+        setLabels()
+    
     }
     
     func setLabels() {
@@ -23,6 +25,7 @@ class DetailViewController: UIViewController {
         let defaults = UserDefaults.standard
         
         self.nameLabel.text = defaults.object(forKey:"name") as? String
+        self.detailURL = defaults.string(forKey:"url")!
         
     }
 

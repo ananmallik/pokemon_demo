@@ -41,6 +41,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let defaults = UserDefaults.standard
         defaults.set(pokemons[indexPath.row].name.capitalized, forKey: "name")
+        defaults.set(pokemons[indexPath.row].url, forKey: "url")
         
         performSegue(withIdentifier: "showDetails", sender: self)
         
