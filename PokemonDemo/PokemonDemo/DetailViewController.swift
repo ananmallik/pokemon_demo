@@ -2,7 +2,7 @@
 //  DetailViewController.swift
 //  PokemonDemo
 //
-//  Created by A. Mallik on 09/04/2023.
+//  Created by Anan K. Mallik on 09/04/2023.
 //
 
 import UIKit
@@ -29,24 +29,26 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        setLabels()
+        getURL()
         
         //Set labels with values:
         getdetailData(){
+            
+            self.nameLabel.text = self.name.capitalized
             self.nameDetail.text = "Name: " + self.name.capitalized
             self.heightDetail.text = "Height: " + String(self.height)
             self.weightDetail.text = "Weight: " + String(self.weight)
             self.orderDetail.text = "Order: " + String(self.order)
             self.baseExperienceDetail.text = "Base Experience: " + String(self.base_experience)
+            
         }
 
     
     }
     
-    func setLabels() {
+    func getURL() {
         
         let defaults = UserDefaults.standard
-        self.nameLabel.text = defaults.object(forKey:"name") as? String
         self.detailURL = defaults.string(forKey:"url")!
         
     }
@@ -65,7 +67,7 @@ class DetailViewController: UIViewController {
                     do {
                         // make sure this JSON is in the format we expect
                         if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            // try to read out a string array
+                            
                             if true {
                                 
                                 self.name = json["name"]! as! String
@@ -84,6 +86,7 @@ class DetailViewController: UIViewController {
                     }
                  }
                }
+           //Make the API Call:
            }.resume()
         }
 
