@@ -57,7 +57,6 @@ class DetailViewController: UIViewController {
         
         if let url = URL(string: self.detailURL) {
             
-            //print (self.detailURL)
             
            URLSession.shared.dataTask(with: url) { data, response, error in
               if let data = data {
